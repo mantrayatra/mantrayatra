@@ -39,8 +39,8 @@ services:
     environment:
       DOMAIN: mantrayatra.com
     ports:
-        - "8000:80"
-        - "8080:443"
+        - "80:80"
+        - "443:443"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
