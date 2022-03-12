@@ -1,0 +1,61 @@
+version: "3.9"
+    
+services:
+  db:
+    image: mysql:5.7.37
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_user_password
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD_FILE: /run/secrets/mysql_user_password
+    secrets:
+      - mysql_user_password
+      - mysql_root_user_password
+    
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:5.9.1-php7.4-apache
+    volumes:
+      - wordpress_data:/var/www/html
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini # https://www.aptgetlife.co.uk/docker-wordpress-increase-php-max-file-size/
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD_FILE: /run/secrets/mysql_user_password
+      WORDPRESS_DB_NAME: wordpress
+    secrets:
+      - mysql_user_password
+
+  caddy:
+    image: caddy:2.4.6
+    depends_on:
+      - wordpress
+    restart: always
+    environment:
+      DOMAIN: mantrayatra.com
+    ports:
+        - "8000:80"
+        - "8080:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config  
+      
+secrets:
+  mysql_root_user_password:
+    file: ./mysql-root-user-password.txt
+  
+  mysql_user_password:
+    file: ./mysql-user-password.txt
+
+volumes:
+  db_data: {}
+  wordpress_data: {}
+  caddy_data: {}
+  caddy_config: {}
+
