@@ -1,0 +1,4 @@
+.terraform/
+infra.out
+*.tfstate*
+hosts

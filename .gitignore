@@ -1,5 +1,4 @@
 mysql*.txt
 .idea
 __pycache__
-infra
 backups
