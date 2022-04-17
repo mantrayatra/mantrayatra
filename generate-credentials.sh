@@ -1,4 +1,11 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-uuidgen > mysql-root-user-password.txt
-uuidgen > mysql-user-password.txt
+set -e
+
+if [[ -d credentials ]]; then
+    echo "credentials already generated... skipping..."
+else
+  mkdir credentials
+  uuidgen > credentials/mysql-root-user-password.txt
+  uuidgen > credentials/mysql-user-password.txt
+fi

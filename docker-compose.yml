@@ -19,7 +19,7 @@ services:
   wordpress:
     depends_on:
       - db
-    image: wordpress:5.9.1-php7.4-apache
+    image: wordpress:5.9.3-php7.4-apache
     volumes:
       - wordpress_data:/var/www/html
       - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini # https://www.aptgetlife.co.uk/docker-wordpress-increase-php-max-file-size/
@@ -49,10 +49,10 @@ services:
       
 secrets:
   mysql_root_user_password:
-    file: ./mysql-root-user-password.txt
+    file: ./credentials/mysql-root-user-password.txt
   
   mysql_user_password:
-    file: ./mysql-user-password.txt
+    file: ./credentials/mysql-user-password.txt
 
 volumes:
   db_data: {}

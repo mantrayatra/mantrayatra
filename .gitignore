@@ -1,4 +1,4 @@
 mysql*.txt
-.idea
-__pycache__
-backups
+.idea/*
+backups/*
+credentials/*
