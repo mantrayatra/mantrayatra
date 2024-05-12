@@ -4,4 +4,4 @@ set -e
 
 ./generate-credentials.sh
 
-docker-compose --env-file .env.prod up -d
+docker compose --env-file .env.prod up -d
