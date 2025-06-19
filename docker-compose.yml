@@ -20,6 +20,7 @@ services:
     volumes:
       - wordpress_data:/var/www/html
       - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini # https://www.aptgetlife.co.uk/docker-wordpress-increase-php-max-file-size/
+      - ./apache-upload.conf:/etc/apache2/conf-enabled/apache-upload.conf
     restart: always
     environment:
       WORDPRESS_DB_HOST: db:3306
