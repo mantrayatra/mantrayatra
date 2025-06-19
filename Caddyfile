@@ -1,3 +1,6 @@
 {$DOMAIN:localhost} {
     reverse_proxy wordpress:80
+    request_body {
+        max_size 10GB
+    }
 }
